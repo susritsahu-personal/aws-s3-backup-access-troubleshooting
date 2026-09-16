@@ -82,6 +82,54 @@ An initial attempt to remove the delete marker failed because the IAM user lacke
 
 [View Incident 4 Documentation](documentation/incident-4-deleted-object-recovery.md)
 
+## Project Evidence
+
+### AWS CLI Backup
+
+The local backup files were successfully synchronized to the S3 bucket using the AWS CLI.
+
+![AWS CLI Backup Success](screenshots/s3-cli-backup-success.png)
+
+### Incident 1 — IAM Access Denied
+
+Bucket access initially failed because the IAM user lacked the `s3:ListBucket` permission.
+
+![S3 ListBucket Access Denied](screenshots/incident-1-s3-access-denied.png)
+
+### Incident 2 — Version Listing Permission Troubleshooting
+
+Listing object versions initially failed because the IAM user lacked `s3:ListBucketVersions`.
+
+![ListBucketVersions Access Denied](screenshots/incident-2-list-bucket-versions-access-denied.png)
+
+After adding the required permission, object versions could be listed successfully.
+
+![Successful Object Version Listing](screenshots/incident-2-list-versions-success.png)
+
+### Incident 3 — Object Version Recovery
+
+Multiple versions of `customer-data.txt` were created and identified using S3 Versioning.
+
+![S3 Object Versions](screenshots/incident-3-s3-object-versions.png)
+
+A previous version was retrieved and verified as part of the recovery process.
+
+![Object Version Recovery](screenshots/incident-3-object-version-recovery.png)
+
+### Incident 4 — Deleted Object Recovery
+
+Deleting `system-log.txt` created a delete marker while preserving the previous object version.
+
+![S3 Delete Marker](screenshots/incident-4-delete-marker.png)
+
+The initial recovery attempt failed because the IAM user lacked `s3:DeleteObjectVersion`.
+
+![DeleteObjectVersion Access Denied](screenshots/incident-4-delete-object-version-access-denied.png)
+
+After adding the required IAM permission, the delete marker was removed and `system-log.txt` became visible again.
+
+![Successful Deleted Object Recovery](screenshots/incident-4-object-recovery-success.png)
+
 ## Key Learnings
 
 - Performed S3 backup operations using the AWS CLI.
