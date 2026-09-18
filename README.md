@@ -16,6 +16,12 @@ This project simulates common S3 backup and support scenarios. Files were backed
 
 Multiple troubleshooting scenarios were performed to investigate access-denied errors, object-version permissions, version recovery, and accidental object deletion.
 
+## Architecture Diagram
+
+The diagram below shows the S3 backup workflow, IAM-based access control, object versioning, and recovery architecture used in this project.
+
+![AWS S3 Backup and Access Control Architecture](architecture-diagram.png)
+
 ## Backup Operations
 
 Three sample files were created locally:
